@@ -1,6 +1,3 @@
-Here's a detailed README file for your GitHub project:
-
----
 
 # 🎯 **IELTS Speaking Analyzer**
 
