@@ -146,6 +146,7 @@ http://127.0.0.1:8000
 
 ## 🔥 **Future Enhancements**
 - 🌟 **Real-time feedback:** Displaying live feedback while the audio is being analyzed.
+- 🤝 **Future Expansion**: Expand support to include IELTS Listening, TOEFL, and other speaking-specific exams.
 - 🔍 **More detailed metrics:** Adding metrics like pauses, intonation, and tone variations.
 - 🌐 **Multi-language support:** Expanding the system to support other languages.
 - 📈 **User History:** Saving and displaying previous results for comparison.
