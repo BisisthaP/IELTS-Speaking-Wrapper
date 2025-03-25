@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Analysis Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .band-score {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-number {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #7B61FF, #60efff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #7B61FF;
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .transcript-section {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .transcript-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .transcript-section::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .transcript-section::-webkit-scrollbar-thumb {
+            background: #7B61FF;
+            border-radius: 4px;
+        }
+
+        .improvements-section {
+            margin-top: 2rem;
+        }
+
+        .quick-tips {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tip-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #7B61FF, #60efff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tip-content {
+            flex-grow: 1;
+        }
+
+        .tip-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #7B61FF;
+        }
+
+        .tip-text {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .detailed-analysis {
+            margin-top: 2rem;
+        }
+
+        .analysis-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .analysis-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .analysis-title {
+            font-weight: bold;
+            color: #7B61FF;
+        }
+
+        .analysis-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .analysis-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .analysis-content {
+            display: none;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0 0 10px 10px;
+            margin-top: -10px;
+        }
+
+        .analysis-content.active {
+            display: block;
+        }
+
+        .suggestion-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            transform: translateX(5px);
+        }
+
+        .suggestion-title {
+            font-weight: bold;
+            color: #60efff;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestion-text {
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #7B61FF, #60efff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .resources-section {
+            padding: 1rem;
+        }
+
+        .resources-section h3 {
+            color: #7B61FF;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .video-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .video-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .video-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .video-icon {
+            font-size: 1.2rem;
+        }
+
+        .video-title {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Column - Scores and Metrics -->
+        <div class="section">
+            <div class="band-score">
+                <h2>Overall Band Score</h2>
+                <div class="score-number" id="band-score">Loading...</div>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="fluency">--</div>
+                    <div class="metric-label">Fluency & Coherence</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="lexical">--</div>
+                    <div class="metric-label">Lexical Resource</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="grammar">--</div>
+                    <div class="metric-label">Grammar</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="pronunciation">--</div>
+                    <div class="metric-label">Pronunciation</div>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="speech-rate">--</div>
+                    <div class="metric-label">Speech Rate (wpm)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="filler-words">--</div>
+                    <div class="metric-label">Filler Words</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="vocabulary">--</div>
+                    <div class="metric-label">Vocabulary Diversity</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="confidence">--</div>
+                    <div class="metric-label">Confidence Score</div>
+                </div>
+            </div>
+
+            <div class="quick-tips">
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <div class="tip-content">
+                        <div class="tip-title">Focus Area</div>
+                        <div class="tip-text" id="focus-area">Loading...</div>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">💡</div>
+                    <div class="tip-content">
+                        <div class="tip-title">Quick Tip</div>
+                        <div class="tip-text" id="quick-tip">Loading...</div>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📈</div>
+                    <div class="tip-content">
+                        <div class="tip-title">Strength</div>
+                        <div class="tip-text" id="strength">Loading...</div>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <div class="tip-content">
+                        <div class="tip-title">Next Step</div>
+                        <div class="tip-text" id="next-step">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Transcript and Detailed Analysis -->
+        <div class="section">
+            <h2>Transcript</h2>
+            <div class="transcript-section" id="transcript">
+                Loading transcript...
+            </div>
+
+            <div class="improvements-section">
+                <h2>Detailed Analysis</h2>
+                <div class="detailed-analysis">
+                    <div class="analysis-header" onclick="toggleAnalysis()">
+                        <div class="analysis-title">View Detailed Improvement Suggestions</div>
+                        <div class="analysis-icon">▼</div>
+                    </div>
+                    <div class="analysis-content" id="analysis-content">
+                        <div id="suggestions">
+                            Loading suggestions...
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Recommended Resources</h2>
+                <div class="detailed-analysis">
+                    <div class="analysis-header" onclick="toggleResources()">
+                        <div class="analysis-title">View Recommended IELTS Resources</div>
+                        <div class="analysis-icon">▼</div>
+                    </div>
+                    <div class="analysis-content" id="resources-content">
+                        <div class="resources-section">
+                            <h3>IELTS Band Score Videos</h3>
+                            <div class="video-links">
+                                <a href="https://www.youtube.com/watch?v=I_VTQP4UPWE" target="_blank" class="video-link">
+                                    <div class="video-item">
+                                        <span class="video-icon">🎥</span>
+                                        <span class="video-title">IELTS Speaking Band 9 Sample</span>
+                                    </div>
+                                </a>
+                                <a href="https://www.youtube.com/watch?v=nJJyilEPwpk" target="_blank" class="video-link">
+                                    <div class="video-item">
+                                        <span class="video-icon">🎥</span>
+                                        <span class="video-title">IELTS Speaking Tips & Tricks</span>
+                                    </div>
+                                </a>
+                                <a href="https://www.youtube.com/watch?v=tkpWTNeEIKQ" target="_blank" class="video-link">
+                                    <div class="video-item">
+                                        <span class="video-icon">🎥</span>
+                                        <span class="video-title">IELTS Speaking Practice Test</span>
+                                    </div>
+                                </a>
+                                <a href="https://www.youtube.com/watch?v=Rv79dEpaiX4" target="_blank" class="video-link">
+                                    <div class="video-item">
+                                        <span class="video-icon">🎥</span>
+                                        <span class="video-title">IELTS Speaking Band 8 Example</span>
+                                    </div>
+                                </a>
+                                <a href="https://www.youtube.com/watch?v=t9PRLpkCUSM" target="_blank" class="video-link">
+                                    <div class="video-item">
+                                        <span class="video-icon">🎥</span>
+                                        <span class="video-title">IELTS Speaking Common Topics</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadResults() {
+            try {
+                const response = await fetch('/data');
+                const data = await response.json();
+                
+                // Update metrics immediately
+                updateMetrics(data);
+                
+                // Load other content in the background
+                loadOtherContent(data);
+            } catch (error) {
+                console.error('Error loading results:', error);
+                showError();
+            }
+        }
+
+        function updateMetrics(data) {
+            // Update basic metrics
+            document.getElementById('band-score').innerText = data.ielts_metrics["Final Band Score"];
+            document.getElementById('fluency').innerText = data.ielts_metrics["Fluency & Coherence"];
+            document.getElementById('lexical').innerText = data.ielts_metrics["Lexical Resource"];
+            document.getElementById('grammar').innerText = data.ielts_metrics["Grammatical Range & Accuracy"];
+            document.getElementById('pronunciation').innerText = data.ielts_metrics["Pronunciation"];
+            
+            // Update speech metrics
+            if (data.speech_metrics) {
+                document.getElementById('speech-rate').innerText = data.speech_metrics["speech_rate"]?.toFixed(1) || '--';
+                document.getElementById('filler-words').innerText = (data.speech_metrics["filler_words"]?.toFixed(1) || '--') + '%';
+                document.getElementById('vocabulary').innerText = data.speech_metrics["vocabulary_diversity"]?.toFixed(1) || '--';
+                document.getElementById('confidence').innerText = data.speech_metrics["confidence_score"]?.toFixed(1) || '--';
+            }
+        }
+
+        function loadOtherContent(data) {
+            // Update transcript
+            document.getElementById('transcript').innerText = data.transcript;
+            
+            // Process and format the feedback
+            const feedback = processFeedback(data.gemini_feedback);
+            
+            // Update quick tips
+            document.getElementById('focus-area').innerText = feedback.focusArea;
+            document.getElementById('quick-tip').innerText = feedback.quickTip;
+            document.getElementById('strength').innerText = feedback.strength;
+            document.getElementById('next-step').innerText = feedback.nextStep;
+            
+            // Update detailed suggestions
+            const suggestionsHtml = feedback.suggestions.map(suggestion => `
+                <div class="suggestion-item">
+                    <div class="suggestion-title">${suggestion.title}</div>
+                    <div class="suggestion-text">${suggestion.text}</div>
+                </div>
+            `).join('');
+            document.getElementById('suggestions').innerHTML = suggestionsHtml;
+        }
+
+        function showError() {
+            // Show error state for metrics
+            const metrics = ['band-score', 'fluency', 'lexical', 'grammar', 'pronunciation', 
+                           'speech-rate', 'filler-words', 'vocabulary', 'confidence'];
+            metrics.forEach(id => {
+                document.getElementById(id).innerText = '--';
+            });
+        }
+
+        function processFeedback(feedback) {
+            // Split the feedback into sections
+            const sections = feedback.split('\n\n');
+            
+            // Process detailed suggestions first
+            const suggestions = sections
+                .filter(s => s.length > 50) // Filter out short sections
+                .map(s => {
+                    const lines = s.split('\n');
+                    const title = lines[0].replace(/[*#-]/g, '').trim();
+                    const text = lines.slice(1).join(' ').replace(/[*#-]/g, '').trim();
+                    return { title, text };
+                })
+                .filter(s => s.title && s.text);
+
+            // Extract focus area - look for areas needing improvement
+            const focusArea = extractFocusArea(sections, suggestions);
+            
+            // Extract quick tip - look for actionable advice
+            const quickTip = extractQuickTip(sections, suggestions);
+            
+            // Extract strength - look for positive feedback
+            const strength = extractStrength(sections, suggestions);
+            
+            // Extract next step - look for specific recommendations
+            const nextStep = extractNextStep(sections, suggestions);
+            
+            return {
+                focusArea,
+                quickTip,
+                strength,
+                nextStep,
+                suggestions
+            };
+        }
+
+        function extractFocusArea(sections, suggestions) {
+            // Look for sections mentioning improvement or focus
+            const focusSection = sections.find(s => 
+                s.toLowerCase().includes('focus area') || 
+                s.toLowerCase().includes('main area to improve') ||
+                s.toLowerCase().includes('primary concern')
+            );
+
+            if (focusSection) {
+                // Extract the first actionable point
+                const lines = focusSection.split('\n');
+                const focusLine = lines.find(line => 
+                    line.length > 0 && 
+                    !line.startsWith('*') && 
+                    !line.startsWith('-') && 
+                    !line.startsWith('#')
+                );
+                // Ensure the focus area is concise and specific
+                return focusLine ? focusLine.replace(/[*#-]/g, '').trim().split('.')[0] : 'Improve overall fluency and coherence';
+            }
+
+            // If no focus section found, analyze suggestions
+            const improvementSuggestion = suggestions.find(s => 
+                s.title.toLowerCase().includes('improve') || 
+                s.title.toLowerCase().includes('focus')
+            );
+            return improvementSuggestion ? improvementSuggestion.title.replace(/[*#-]/g, '').trim().split('.')[0] : 'Improve overall fluency and coherence';
+        }
+
+        function extractQuickTip(sections, suggestions) {
+            // Look for sections with practical advice
+            const tipSection = sections.find(s => 
+                s.toLowerCase().includes('quick tip') || 
+                s.toLowerCase().includes('practical advice') ||
+                s.toLowerCase().includes('immediate action')
+            );
+
+            if (tipSection) {
+                // Extract the first practical tip
+                const lines = tipSection.split('\n');
+                const tipLine = lines.find(line => 
+                    line.length > 0 && 
+                    !line.startsWith('*') && 
+                    !line.startsWith('-') && 
+                    !line.startsWith('#')
+                );
+                // Ensure the tip is actionable and concise
+                return tipLine ? tipLine.replace(/[*#-]/g, '').trim().split('.')[0] : 'Practice speaking with a timer to improve fluency';
+            }
+
+            // If no tip section found, create one from suggestions
+            const practicalSuggestion = suggestions.find(s => 
+                s.text.toLowerCase().includes('practice') || 
+                s.text.toLowerCase().includes('try')
+            );
+            return practicalSuggestion ? practicalSuggestion.text.replace(/[*#-]/g, '').trim().split('.')[0] : 'Practice speaking with a timer to improve fluency';
+        }
+
+        function extractStrength(sections, suggestions) {
+            // Look for sections mentioning strengths or positive feedback
+            const strengthSection = sections.find(s => 
+                s.toLowerCase().includes('strength') || 
+                s.toLowerCase().includes('good') ||
+                s.toLowerCase().includes('well done')
+            );
+
+            if (strengthSection) {
+                // Extract the first positive point
+                const lines = strengthSection.split('\n');
+                const strengthLine = lines.find(line => 
+                    line.length > 0 && 
+                    !line.startsWith('*') && 
+                    !line.startsWith('-') && 
+                    !line.startsWith('#')
+                );
+                // Ensure the strength is specific and concise
+                return strengthLine ? strengthLine.split('.')[0] : 'Good pronunciation and clear articulation';
+            }
+
+            // If no strength section found, look for positive feedback in suggestions
+            const positiveSuggestion = suggestions.find(s => 
+                s.text.toLowerCase().includes('good') || 
+                s.text.toLowerCase().includes('well') ||
+                s.text.toLowerCase().includes('strong')
+            );
+            return positiveSuggestion ? positiveSuggestion.text.split('.')[0] : 'Good pronunciation and clear articulation';
+        }
+
+        function extractNextStep(sections, suggestions) {
+            // Look for sections with next steps or recommendations
+            const nextStepSection = sections.find(s => 
+                s.toLowerCase().includes('next step') || 
+                s.toLowerCase().includes('recommended action') ||
+                s.toLowerCase().includes('future focus')
+            );
+
+            if (nextStepSection) {
+                // Extract the first actionable next step
+                const lines = nextStepSection.split('\n');
+                const nextStepLine = lines.find(line => 
+                    line.length > 0 && 
+                    !line.startsWith('*') && 
+                    !line.startsWith('-') && 
+                    !line.startsWith('#')
+                );
+                // Ensure the next step is specific and actionable
+                return nextStepLine ? nextStepLine.replace(/[*#-]/g, '').trim().split('.')[0] : 'Record more practice sessions to track progress';
+            }
+
+            // If no next step section found, create one from suggestions
+            const actionableSuggestion = suggestions.find(s => 
+                s.text.toLowerCase().includes('should') || 
+                s.text.toLowerCase().includes('recommend') ||
+                s.text.toLowerCase().includes('next')
+            );
+            return actionableSuggestion ? actionableSuggestion.text.replace(/[*#-]/g, '').trim().split('.')[0] : 'Record more practice sessions to track progress';
+        }
+
+        function toggleAnalysis() {
+            const content = document.getElementById('analysis-content');
+            const icon = document.querySelector('.analysis-icon');
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        function toggleResources() {
+            const content = document.getElementById('resources-content');
+            const icon = content.previousElementSibling.querySelector('.analysis-icon');
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        loadResults();
+    </script>
+</body>
+</html>
