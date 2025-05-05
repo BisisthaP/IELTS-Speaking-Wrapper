@@ -160,9 +160,11 @@ This project is licensed under the **MIT License**.
 
 ---
 
-✅ **Author:** Bisistha Patra  
+✅ **Author:** Bisistha Patra
+🤝 **Co-Authors:** Ayush Gharat and Niyati Sardana
 📧 **Contact:** patrabisistha@gmail.com  
-🔗 **GitHub:** https://github.com/BisisthaP  
+🔗 **GitHub:** https://github.com/BisisthaP 
+📄 **Co-Author Git Hub:** https://github.com/ayushgharat234 
 
 ---
 
