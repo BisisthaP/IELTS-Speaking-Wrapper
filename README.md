@@ -11,18 +11,18 @@ The **IELTS Speaking Analyzer** is a web-based application designed to evaluate 
 ---
 
 ## 🚀 **Features**
-### ✅ **Audio Upload & Transcription**
+### **Audio Upload & Transcription**
 - Users can upload `.mp3`, `.wav`, or `.m4a` audio files.
 - The system transcribes the audio using `transcription.py` and processes the content for evaluation.
 
-### ✅ **Automated Band Score Calculation**
+### **Automated Band Score Calculation**
 - The app provides **overall band scores** and scores for the four IELTS criteria:
     - **Fluency & Coherence**
     - **Lexical Resource**
     - **Grammatical Range & Accuracy**
     - **Pronunciation**
 
-### ✅ **Advanced Speech Analysis**
+### **Advanced Speech Analysis**
 - Extracts and displays additional metrics:
     - **Speech Rate (WPM)**: Words per minute spoken.
     - **Filler Words Frequency**
@@ -41,7 +41,7 @@ The **IELTS Speaking Analyzer** is a web-based application designed to evaluate 
 
 ---
 
-## 🛠️ **Tech Stack**
+## **Tech Stack**
 - **Backend:** FastAPI (Python)
 - **Frontend:** HTML5 + CSS + HTMX
 - **Audio Processing:** Python scripts for transcription and analysis
@@ -62,7 +62,7 @@ The **IELTS Speaking Analyzer** is a web-based application designed to evaluate 
 
 ---
 
-## 🔥 **Installation & Usage**
+## **Installation & Usage**
 
 ### **1️⃣ Clone the Repository**
 ```bash
@@ -115,7 +115,7 @@ http://127.0.0.1:8000
 
 ## 🎯 **How It Works**
 
-### **1️⃣ User Flow**
+### **1️User Flow**
 1. **Upload Audio:** Users upload their speaking sample on the landing page.
 2. **Transcription:** The `transcription.py` script transcribes the audio.
 3. **Processing & Analysis:** 
@@ -142,11 +142,11 @@ http://127.0.0.1:8000
 ---
 
 ## 🔥 **Future Enhancements**
-- 🌟 **Real-time feedback:** Displaying live feedback while the audio is being analyzed.
-- 🤝 **Future Expansion**: Expand support to include IELTS Listening, TOEFL, and other speaking-specific exams.
-- 🔍 **More detailed metrics:** Adding metrics like pauses, intonation, and tone variations.
-- 🌐 **Multi-language support:** Expanding the system to support other languages.
-- 📈 **User History:** Saving and displaying previous results for comparison.
+- **Real-time feedback:** Displaying live feedback while the audio is being analyzed.
+- **Future Expansion**: Expand support to include IELTS Listening, TOEFL, and other speaking-specific exams.
+- **More detailed metrics:** Adding metrics like pauses, intonation, and tone variations.
+- **Multi-language support:** Expanding the system to support other languages.
+- **User History:** Saving and displaying previous results for comparison.
 
 ---
 
@@ -160,11 +160,11 @@ This project is licensed under the **MIT License**.
 
 ---
 
-✅ **Author:** Bisistha Patra
-🤝 **Co-Authors:** Ayush Gharat and Niyati Sardana
-📧 **Contact:** patrabisistha@gmail.com  
-🔗 **GitHub:** https://github.com/BisisthaP 
-📄 **Co-Author Git Hub:** https://github.com/ayushgharat234 
+**Author:** Bisistha Patra
+**Co-Authors:** Ayush Gharat and Niyati Sardana
+**Contact:** patrabisistha@gmail.com  
+**GitHub:** https://github.com/BisisthaP 
+**Co-Author Git Hub:** https://github.com/ayushgharat234 
 
 ---
 
